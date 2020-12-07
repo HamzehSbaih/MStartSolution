@@ -1,0 +1,24 @@
+﻿@model MStart.Models.TranactionUIViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+@Html.Partial("~/Views/Shared/Partials/_TransactionsList.cshtml", Model.Tranactions)
+
+<script>
+            $('.qstn').click(function () {
+                debugger;
+                var id = $(this).data('assigned-id');
+                if (id > 0) {
+                    var route = '@Url.Action("AddImage", "User")?UserId=' + id;
+                    $('#Questions').load(route);
+                }
+            });
+
+
+</script>

@@ -1,0 +1,73 @@
+﻿@model MStart.Models.TranactionViewModel
+@using MStart.Common
+@using MStart.Common.App_LocalResources;
+@{
+    ViewBag.Title = "EditTranaction";
+}
+
+@using (Html.BeginForm("EditTranaction", "Transaction", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <section class="login_wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="login">
+                        <h2>@Resource.AddTransaction</h2>
+                        <p class="login_subtext">@Resource.AddTransaction</p>
+                        @Html.HiddenFor(c => c.User_ID)
+                        @Html.HiddenFor(i => i.ID)
+                        <div class="login_form">
+                            <form>
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Account_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    @Html.EditorFor(model => model.Account_ID, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Account_ID, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Currency, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    @Html.EditorFor(model => model.Currency, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DateTime_UTC, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    @Html.EditorFor(model => model.DateTime_UTC, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.DateTime_UTC, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Server_Date_Time, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    @Html.EditorFor(model => model.Server_Date_Time, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.Server_Date_Time, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DateTime_UTC, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    @Html.EditorFor(model => model.DateTime_UTC, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.DateTime_UTC, "", new { @class = "text-danger" })
+                                </div>
+                                <br />
+                                <button type="submit" class="btn btn-default">@Resource.Edit</button>
+                                <hr>
+                                <button type="button" onclick="location.href='@Url.Action("Index", "UserAccount")'" class="btn btn-default">@Resource.Users</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+
+
+
+
+
+
+

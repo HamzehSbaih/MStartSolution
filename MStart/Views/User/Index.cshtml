@@ -1,0 +1,24 @@
+﻿@model MStart.Models.UserUIViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+@Html.Partial("~/Views/Shared/Partials/_UsersList.cshtml", Model.Users)
+
+<script>
+            $('.qstn').click(function () {
+                debugger;
+                var id = $(this).data('assigned-id');
+                if (id > 0) {
+                    var route = '@Url.Action("AddImage", "User")?UserId=' + id;
+                    $('#Questions').load(route);
+                }
+            });
+
+
+</script>

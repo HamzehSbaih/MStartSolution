@@ -1,0 +1,194 @@
+﻿@using MStart.Common
+@using MStart.Common.App_LocalResources;
+@using MStart.UIHelper.PagedList
+@model IEnumerable<MStart.Models.UsersViewModel>
+
+
+@{
+    Layout = null;
+}
+
+@if (Model == null || !Model.Any())
+{
+    <div class="text-center">
+        @Resource.NoData
+    </div>
+    return;
+}
+
+@{
+    var pagedListModel = (IPagedListModel)Model;
+    pagedListModel.ItemId = Guid.NewGuid().ToString();
+}
+
+
+
+@using (Html.BeginForm("Index", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div id="@pagedListModel.ItemId" role="treegrid" class="searchRequests cchi-grid">
+        <section class="login_wrapper">
+            <div class="container">
+                <p>
+                    @Html.ActionLink(@Resource.AddUsers, "AddUser") |
+                    @Html.ActionLink(@Resource.EditUser, "EditUser") |
+                    <button type="submit" style="background-color:#106E36;color:white;" class="btn btn-default">@Resource.Delete</button>
+                    @*@Html.ActionLink(@Resource.Delete, "Index")*@
+                </p>
+                <p>
+                   
+                    @Html.ActionLink(@Resource.Accounts, "Index", "UserAccount")
+                </p>
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="login">
+                            <h2>@Resource.Users</h2>
+                            <p class="login_subtext">@Resource.Users</p>
+                            <div class="login_form">
+                                <form>
+                                    <section class="data_table_section">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="data_table_container">
+                                                    <table id="example2" class="table table-bordered table-hover table-striped">
+                                                        <tr>
+                                                            <th>
+                                                                <input type="checkbox" name="chkboxheader" class="ckbox" id="chkboxheader" />
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.Server_Date_Time)
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.First_Name)
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.Last_Name)
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.Email)
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.Mobile_Number)
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.Gender)
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.Address)
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.image)
+                                                            </th>
+
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.First_Name_AR)
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.Last_Name_AR)
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.Address_AR)
+                                                            </th>
+                                                        </tr>
+                                                        @if (Model != null)
+                                                        {
+                                                            <tbody>
+                                                                @foreach (var item in Model)
+                                                                {
+                                                                    <tr>
+                                                                        <td><input type="checkbox" name="empids" class="ckbox" value="@item.ID" id="chk1" /></td>
+                                                                        
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Server_Date_Time)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.First_Name)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Last_Name)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Email)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Mobile_Number)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Gender)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Address)
+                                                                        </td>
+                                                                        @if (!String.IsNullOrEmpty(@item.EmployeeImage))
+                                                                        {
+                                                                            <td>
+                                                                                <img src="@item.EmployeeImage" />
+                                                                            </td>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td>
+                                                                                <a href="#" class="qstn" data-toggle="modal" data-target="#QuestionsModal" data-assigned-id="@item.ID">@Resource.AddUserImage</a>
+                                                                            </td>
+                                                                        }
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.First_Name_AR)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Last_Name_AR)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Address_AR)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.ActionLink(@Resource.Edit, "EditUser", new { UserId = item.ID }) |
+                                                                            @Html.ActionLink(@Resource.Delete, "DeleteUser", new { UserId = item.ID })|
+                                                                            @Html.ActionLink(@Resource.AddAccount, "AddAccount", "UserAccount", new { UserId = item.ID } , null)
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        }
+                                                        else
+                                                        {
+                                                            <tr>@Resource.NoData</tr>
+                                                        }
+
+                                                    </table>
+                                                </div>
+                                                @Html.Partial("~/Views/Shared/_PaginationPost.cshtml", pagedListModel)
+                                            </div>
+                                        </div>
+                                    </section>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade login_modal" id="QuestionsModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div id="Questions"></div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<script>
+    $(document).ready(function () {
+        $("#chkboxheader").click(function () {
+            debugger;
+            if ($(this).is(":checked", true)) {
+                $(".ckbox").prop("checked", true)
+            }
+            else {
+                $(".ckbox").prop("checked", false)
+            }
+        });
+    });
+</script>
